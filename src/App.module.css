@@ -1,0 +1,31 @@
+.skipLink {
+  position: fixed;
+  top: -60px;
+  left: var(--u2);
+  z-index: 100;
+  background: var(--bp-amber);
+  color: var(--bp-bg-deep);
+  padding: var(--u2) var(--u3);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-decoration: none;
+  transition: top 0.2s var(--ease-standard);
+}
+
+.skipLink:focus {
+  top: var(--u2);
+}
+
+.page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding-top: var(--content-pad-top);
+  padding-left: var(--content-pad-left);
+  padding-right: var(--content-pad-right);
+  padding-bottom: var(--u4);
+}

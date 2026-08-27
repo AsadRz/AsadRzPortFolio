@@ -1,0 +1,33 @@
+.header {
+  margin-bottom: var(--u6);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--u2);
+  margin-bottom: var(--u2);
+}
+
+.tag {
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  color: var(--bp-line-dim);
+}
+
+.title {
+  font-size: clamp(24px, 3.4vw, 34px);
+  color: var(--bp-line-strong);
+}
+
+.subtitle {
+  margin-top: var(--u1);
+  color: var(--bp-line);
+  max-width: 60ch;
+}
+
+.rule {
+  margin-top: var(--u3);
+  height: 1px;
+  background: linear-gradient(90deg, var(--bp-line-faint-strong), transparent 85%);
+}

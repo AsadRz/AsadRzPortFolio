@@ -1,0 +1,88 @@
+.cornerMark {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 50;
+}
+
+.cornerMark::before,
+.cornerMark::after {
+  content: '';
+  position: absolute;
+  background: var(--bp-line-dim);
+}
+
+.cornerMark::before {
+  width: 100%;
+  height: 1px;
+  top: 50%;
+  left: 0;
+}
+
+.cornerMark::after {
+  height: 100%;
+  width: 1px;
+  left: 50%;
+  top: 0;
+}
+
+.cornerMark[data-pos='tl'] {
+  top: 8px;
+  left: 8px;
+}
+.cornerMark[data-pos='tr'] {
+  top: 8px;
+  right: 8px;
+}
+.cornerMark[data-pos='bl'] {
+  bottom: 8px;
+  left: 8px;
+}
+.cornerMark[data-pos='br'] {
+  bottom: 8px;
+  right: 8px;
+}
+
+.rulerTop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--ruler-size);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bp-line-faint-strong) 0 1px,
+    transparent 1px 8px
+  );
+  background-color: var(--bp-bg-raised);
+  border-bottom: var(--border-thin) solid var(--bp-line-faint-strong);
+  z-index: 40;
+  pointer-events: none;
+}
+
+.rulerLeft {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--ruler-size);
+  background-image: repeating-linear-gradient(
+    0deg,
+    var(--bp-line-faint-strong) 0 1px,
+    transparent 1px 8px
+  );
+  background-color: var(--bp-bg-raised);
+  border-right: var(--border-thin) solid var(--bp-line-faint-strong);
+  z-index: 40;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .rulerTop,
+  .rulerLeft,
+  .cornerMark {
+    display: none;
+  }
+}

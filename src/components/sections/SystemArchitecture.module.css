@@ -1,0 +1,151 @@
+.railWrap {
+  position: relative;
+}
+
+/* The continuous spine behind the node list: a dim static track plus an
+   amber progress overlay that GSAP scrubs from 0% to 100% height as the
+   section scrolls past (see useGSAP in SystemArchitecture.tsx). The mask
+   fades the bottom out instead of trying to terminate exactly at the last
+   node's badge, which would need JS measurement — cheaper and just as
+   deliberate-looking, like a trace fading into the board. */
+.railTrack {
+  position: absolute;
+  top: 13px;
+  bottom: 0;
+  left: 32px;
+  width: 2px;
+  transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+}
+
+.railTrackBg {
+  position: absolute;
+  inset: 0;
+  background: var(--bp-line-faint-strong);
+}
+
+.railTrackProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0%;
+  background: var(--bp-amber);
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--u6);
+}
+
+.node {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  column-gap: var(--u3);
+}
+
+.gutter {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.ref {
+  width: 42px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bp-bg-deep);
+  background: var(--bp-cyan);
+  position: relative;
+  z-index: 1;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--u2);
+}
+
+.role {
+  font-size: 19px;
+  color: var(--bp-line-strong);
+}
+
+.period {
+  font-size: 12px;
+  color: var(--bp-line-dim);
+  white-space: nowrap;
+}
+
+.org {
+  margin-top: 4px;
+  color: var(--bp-cyan);
+  font-size: 14.5px;
+}
+
+.location {
+  color: var(--bp-line-dim);
+}
+
+.bullets {
+  margin-top: var(--u2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 68ch;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: var(--u2);
+  color: var(--bp-line);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 1px;
+  background: var(--bp-amber);
+}
+
+.condensed {
+  margin-top: var(--u2);
+  color: var(--bp-line-dim);
+  font-size: 14px;
+  max-width: 68ch;
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--u3);
+}
+
+@media (max-width: 560px) {
+  .node {
+    grid-template-columns: 40px 1fr;
+    column-gap: var(--u2);
+  }
+  .railTrack {
+    left: 20px;
+  }
+  .ref {
+    width: 36px;
+    font-size: 11px;
+  }
+}

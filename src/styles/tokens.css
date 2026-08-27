@@ -1,0 +1,62 @@
+/**
+ * Design tokens for the "blueprint" system — a technical-drawing aesthetic.
+ * Every color, spacing and sizing value used across components is declared
+ * here so the visual system stays a single source of truth.
+ */
+:root {
+  /* ---- Color: cyanotype blueprint ---- */
+  --bp-bg-deep: #081b34; /* page / drafting-table background */
+  --bp-bg: #0d2c53; /* sheet fill */
+  --bp-bg-raised: #123a6b; /* footer band, raised surfaces */
+  --bp-line-strong: #eaf3fc; /* primary text / linework */
+  --bp-line: #a9c9ea; /* secondary text */
+  --bp-line-dim: #8fb0cf; /* tertiary text, corner marks — clears 4.5:1 on every surface it sits on */
+  --bp-line-faint: rgba(234, 243, 252, 0.08); /* minor grid */
+  --bp-line-faint-strong: rgba(234, 243, 252, 0.18); /* major grid, borders */
+  --bp-cyan: #64d9ec; /* links, interactive */
+  --bp-amber: #ff8a3d; /* redline accent — active state, key metrics, CTAs */
+  --bp-amber-soft: rgba(255, 138, 61, 0.14);
+  --bp-amber-line: rgba(255, 138, 61, 0.45);
+
+  /* ---- Typography ---- */
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+
+  /* ---- Spacing (8px base unit) ---- */
+  --u1: 8px;
+  --u2: 16px;
+  --u3: 24px;
+  --u4: 32px;
+  --u5: 40px;
+  --u6: 48px;
+  --u8: 64px;
+  --u10: 80px;
+  --u12: 96px;
+  --u16: 128px;
+
+  /* ---- Chrome sizing ---- */
+  --ruler-size: 26px;
+  --nav-rail-width: 84px;
+  --nav-bar-height-mobile: 48px;
+  --content-max: 1180px;
+  --content-pad-left: calc(var(--ruler-size) + var(--nav-rail-width));
+  --content-pad-top: calc(var(--ruler-size) + var(--u4));
+  --content-pad-right: var(--u4);
+
+  --radius: 0px; /* deliberate: blueprints don't round corners */
+  --border-thin: 1px;
+  --border-thick: 2px;
+
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --nav-rail-width: 0px;
+    --ruler-size: 0px;
+    --content-pad-left: var(--u3);
+    --content-pad-top: calc(var(--nav-bar-height-mobile) + var(--u3));
+    --content-pad-right: var(--u3);
+  }
+}

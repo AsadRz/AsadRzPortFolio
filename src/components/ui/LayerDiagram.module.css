@@ -1,0 +1,59 @@
+.diagram {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: var(--u3) 0;
+}
+
+.segment {
+  display: flex;
+  align-items: center;
+}
+
+.node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  padding: 6px 10px;
+  color: var(--bp-line-dim);
+  opacity: 0.55;
+}
+
+.node[data-active='true'] {
+  color: var(--bp-line-strong);
+  border-color: var(--bp-amber-line);
+  background: var(--bp-amber-soft);
+  opacity: 1;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.node[data-active='true'] .dot {
+  background: var(--bp-amber);
+}
+
+.connector {
+  width: 20px;
+  height: 1px;
+  background: var(--bp-line-faint-strong);
+}
+
+@media (max-width: 480px) {
+  .connector {
+    width: 10px;
+  }
+  .node {
+    font-size: 10px;
+    padding: 5px 7px;
+  }
+}

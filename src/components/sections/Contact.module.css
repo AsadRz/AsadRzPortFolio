@@ -1,0 +1,34 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--u3);
+}
+
+.channel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--u3);
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  text-decoration: none;
+  height: 100%;
+  transition: border-color 0.2s var(--ease-standard), background 0.2s var(--ease-standard);
+}
+
+a.channel:hover {
+  border-color: var(--bp-amber);
+  background: var(--bp-amber-soft);
+}
+
+.channelLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--bp-line-dim);
+}
+
+.channelValue {
+  font-size: 15px;
+  color: var(--bp-line-strong);
+  word-break: break-word;
+}

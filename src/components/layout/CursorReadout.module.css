@@ -1,0 +1,19 @@
+.readout {
+  position: fixed;
+  bottom: var(--u2);
+  left: calc(var(--ruler-size) + var(--nav-rail-width) + var(--u2));
+  display: none;
+  gap: var(--u2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--bp-line-dim);
+  letter-spacing: 0.06em;
+  z-index: 45;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 721px) {
+  .readout {
+    display: flex;
+  }
+}
