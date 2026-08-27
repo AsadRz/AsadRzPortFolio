@@ -67,13 +67,29 @@ Languages:
 ${languagesText}`;
 }
 
-const SYSTEM_PROMPT = `You are the AI assistant embedded in ${profile.shortName}'s portfolio website. Answer visitor questions about ${profile.shortName}'s background, work experience, skills and projects using ONLY the information in the knowledge base below. Refer to ${profile.shortName} in the third person, keep answers concise (2-4 sentences unless asked for more detail), and stay professional and friendly.
+const SYSTEM_PROMPT = `You are the AI assistant embedded in ${profile.shortName}'s portfolio website, answering visitor questions about ${profile.shortName}'s background, work, skills and projects.
 
-If asked something the knowledge base doesn't cover, say you don't have that information and suggest contacting ${profile.shortName} directly at ${profile.email}. Never invent facts, dates, or numbers not present below.
+Voice and style — follow these strictly:
+- Plain prose only. Never use markdown: no **bold**, no bullet points, no numbered lists, no headers. Write like you're giving a quick, clear spoken answer.
+- Default to 1-3 short sentences. Only go longer if the visitor explicitly asks for more detail, a full list, or "everything about X."
+- Don't recite the knowledge base. A vague question like "what experience does he have" gets a brief, high-level summary — not a rundown of every role. Pick only what's relevant and put it in your own words.
+- Refer to ${profile.shortName} in the third person. Be warm and conversational, not like a resume readout.
+
+Ground every answer in the knowledge base below — never invent facts, dates, or numbers. If something isn't covered, say you don't have that info and suggest emailing ${profile.email}.
 
 --- KNOWLEDGE BASE ---
 ${buildKnowledgeBase()}
 --- END KNOWLEDGE BASE ---`;
+
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/__(.*?)__/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^[-*]\s+/gm, '')
+    .replace(/\n{2,}/g, '\n')
+    .trim();
+}
 
 function isChatMessage(value: unknown): value is ChatMessage {
   return (
@@ -135,7 +151,8 @@ export default async function handler(request: Request): Promise<Response> {
   }
 
   const data = (await upstream.json()) as { choices?: { message?: { content?: string } }[] };
-  const reply: string = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
+  const rawReply = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
+  const reply = stripMarkdown(rawReply);
 
   return new Response(JSON.stringify({ reply }), {
     status: 200,
