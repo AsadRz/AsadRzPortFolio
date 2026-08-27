@@ -15,6 +15,15 @@ export const certifications: CertItem[] = [
   { name: 'JavaScript — Intermediate', issuer: 'HackerRank' },
   { name: 'JavaScript — Basic', issuer: 'HackerRank' },
   { name: 'CSS', issuer: 'HackerRank' },
+  { name: 'Build a Full-Stack JavaScript Application Using AWS Amplify', issuer: 'LinkedIn Learning' },
+  { name: '8 Git Commands You Should Know', issuer: 'LinkedIn Learning' },
+  { name: 'React: Working with APIs', issuer: 'LinkedIn Learning' },
+  { name: 'AWS and React: Creating Full-Stack Apps', issuer: 'LinkedIn Learning' },
+  { name: 'Essentials of CSS for React Developers', issuer: 'LinkedIn Learning' },
+  { name: 'Learning Functional Programming with JavaScript', issuer: 'LinkedIn Learning' },
+  { name: 'Learning Next.js', issuer: 'LinkedIn Learning' },
+  { name: 'Building a GraphQL Project with React.js', issuer: 'LinkedIn Learning' },
+  { name: 'Level Up: Advanced SQL', issuer: 'LinkedIn Learning' },
 ];
 
 export const languages: LanguageItem[] = [

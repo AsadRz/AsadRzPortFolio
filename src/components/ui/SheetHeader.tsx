@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { EASE_STANDARD } from '../../lib/easing';
+import { SECTIONS } from '../../data/sections';
 import styles from './SheetHeader.module.css';
 
 interface SheetHeaderProps {
@@ -9,11 +10,15 @@ interface SheetHeaderProps {
   scale?: string;
 }
 
+const TOTAL_SHEETS = String(SECTIONS.length).padStart(2, '0');
+
 export function SheetHeader({ code, title, subtitle, scale = 'N.T.S.' }: SheetHeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.meta}>
-        <span className={`${styles.tag} mono`}>SHEET {code}/06</span>
+        <span className={`${styles.tag} mono`}>
+          SHEET {code}/{TOTAL_SHEETS}
+        </span>
         <span className={`${styles.tag} mono`}>SCALE {scale}</span>
       </div>
       <h2 className={styles.title}>{title}</h2>

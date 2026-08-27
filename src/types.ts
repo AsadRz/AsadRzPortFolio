@@ -53,3 +53,18 @@ export interface LanguageItem {
   level: string;
   strength: number; // 1-5
 }
+
+export interface Recommendation {
+  id: string;
+  code: string; // "REC-01"
+  name: string;
+  role: string;
+  quote: string;
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  source?: string; // e.g. "Client recommendation letter"
+}

@@ -1,0 +1,126 @@
+.achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--u3);
+  margin-bottom: var(--u6);
+}
+
+.achievement {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--u3);
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+}
+
+.achievementTitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--bp-amber);
+}
+
+.achievementDescription {
+  color: var(--bp-line);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.achievementSource {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--bp-line-dim);
+}
+
+.slider {
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  padding: var(--u4);
+}
+
+.sliderHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--u3);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--bp-amber);
+}
+
+.sliderControls {
+  display: flex;
+  align-items: center;
+  gap: var(--u2);
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--bp-line-dim);
+}
+
+.navButton {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--bp-line-strong);
+  background: transparent;
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.navButton:hover:not(:disabled) {
+  border-color: var(--bp-amber);
+  color: var(--bp-amber);
+}
+
+.navButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cardViewport {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.card {
+  width: 100%;
+}
+
+.quote {
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.6;
+  color: var(--bp-line-strong);
+  max-width: 62ch;
+}
+
+.attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: var(--u3);
+  padding-top: var(--u2);
+  border-top: var(--border-thin) solid var(--bp-line-faint);
+}
+
+.name {
+  font-weight: 600;
+  color: var(--bp-line-strong);
+  font-size: 14.5px;
+}
+
+.role {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--bp-line-dim);
+}

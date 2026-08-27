@@ -2,21 +2,28 @@
  * Design tokens for the "blueprint" system — a technical-drawing aesthetic.
  * Every color, spacing and sizing value used across components is declared
  * here so the visual system stays a single source of truth.
+ *
+ * Two color modes, both authentically "blueprint": the default (bare :root)
+ * is a diazo/blueline print — blue linework on white/cream paper. Setting
+ * data-theme="dark" on <html> (see useTheme) switches to the cyanotype
+ * print — white linework on Prussian blue. Same tokens, same components;
+ * only the values swap.
  */
 :root {
-  /* ---- Color: cyanotype blueprint ---- */
-  --bp-bg-deep: #081b34; /* page / drafting-table background */
-  --bp-bg: #0d2c53; /* sheet fill */
-  --bp-bg-raised: #123a6b; /* footer band, raised surfaces */
-  --bp-line-strong: #eaf3fc; /* primary text / linework */
-  --bp-line: #a9c9ea; /* secondary text */
-  --bp-line-dim: #8fb0cf; /* tertiary text, corner marks — clears 4.5:1 on every surface it sits on */
-  --bp-line-faint: rgba(234, 243, 252, 0.08); /* minor grid */
-  --bp-line-faint-strong: rgba(234, 243, 252, 0.18); /* major grid, borders */
-  --bp-cyan: #64d9ec; /* links, interactive */
-  --bp-amber: #ff8a3d; /* redline accent — active state, key metrics, CTAs */
-  --bp-amber-soft: rgba(255, 138, 61, 0.14);
-  --bp-amber-line: rgba(255, 138, 61, 0.45);
+  /* ---- Color: diazo/blueline print (light, default) ---- */
+  --bp-bg-deep: #eef2f7; /* page / drafting-table background */
+  --bp-bg: #ffffff; /* sheet fill */
+  --bp-bg-raised: #e3e9f2; /* footer band, raised surfaces */
+  --bp-line-strong: #0f2038; /* primary text / linework */
+  --bp-line: #33465f; /* secondary text */
+  --bp-line-dim: #52627a; /* tertiary text, corner marks — clears 4.5:1 on every surface it sits on */
+  --bp-line-faint: rgba(15, 32, 56, 0.06); /* minor grid */
+  --bp-line-faint-strong: rgba(15, 32, 56, 0.14); /* major grid, borders */
+  --bp-overlay-faint: rgba(15, 32, 56, 0.03); /* subtle card/chip wash over --bp-bg */
+  --bp-cyan: #0a7ea6; /* links, interactive */
+  --bp-amber: #c1570a; /* redline accent — active state, key metrics, CTAs */
+  --bp-amber-soft: rgba(193, 87, 10, 0.1);
+  --bp-amber-line: rgba(193, 87, 10, 0.4);
 
   /* ---- Typography ---- */
   --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
@@ -49,6 +56,23 @@
   --border-thick: 2px;
 
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Color: cyanotype print (dark) ---- */
+:root[data-theme='dark'] {
+  --bp-bg-deep: #081b34;
+  --bp-bg: #0d2c53;
+  --bp-bg-raised: #123a6b;
+  --bp-line-strong: #eaf3fc;
+  --bp-line: #a9c9ea;
+  --bp-line-dim: #8fb0cf;
+  --bp-line-faint: rgba(234, 243, 252, 0.08);
+  --bp-line-faint-strong: rgba(234, 243, 252, 0.18);
+  --bp-overlay-faint: rgba(234, 243, 252, 0.03);
+  --bp-cyan: #64d9ec;
+  --bp-amber: #ff8a3d;
+  --bp-amber-soft: rgba(255, 138, 61, 0.14);
+  --bp-amber-line: rgba(255, 138, 61, 0.45);
 }
 
 @media (max-width: 720px) {

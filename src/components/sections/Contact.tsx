@@ -8,7 +8,7 @@ import styles from './Contact.module.css';
 export function Contact() {
   return (
     <section id="contact" className="sheet">
-      <SheetHeader code="06" title="Contact" subtitle="Open channels — pick one." scale="1:1" />
+      <SheetHeader code="07" title="Contact" subtitle="Open channels — pick one." scale="1:1" />
       <RevealGroup className={styles.grid} stagger={0.08}>
         <Reveal>
           <motion.a

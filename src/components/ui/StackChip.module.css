@@ -7,7 +7,7 @@
   letter-spacing: 0.02em;
   color: var(--bp-line);
   border: var(--border-thin) solid var(--bp-line-faint-strong);
-  background: rgba(234, 243, 252, 0.03);
+  background: var(--bp-overlay-faint);
   padding: 5px 10px;
   line-height: 1.2;
   white-space: nowrap;

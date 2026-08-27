@@ -7,7 +7,7 @@ export function Specifications() {
   return (
     <section id="specifications" className="sheet">
       <SheetHeader
-        code="05"
+        code="06"
         title="Specifications"
         subtitle="Education, certifications and language calibration."
       />

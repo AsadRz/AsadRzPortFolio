@@ -20,8 +20,9 @@ export const SECTIONS: SectionMeta[] = [
     short: 'Components',
   },
   { id: 'case-studies', code: '04', label: 'Case Studies', short: 'Case Studies' },
-  { id: 'specifications', code: '05', label: 'Specifications', short: 'Specs' },
-  { id: 'contact', code: '06', label: 'Contact', short: 'Contact' },
+  { id: 'recognition', code: '05', label: 'Recognition', short: 'Recognition' },
+  { id: 'specifications', code: '06', label: 'Specifications', short: 'Specs' },
+  { id: 'contact', code: '07', label: 'Contact', short: 'Contact' },
 ];
 
 // Computed once at module load so consumers (useScrollSpy, nav) get a
