@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath' | { read -r f; case \"$f\" in *.ts|*.tsx) ./node_modules/.bin/oxlint \"$f\" 2>&1 ;; esac; }",
+            "timeout": 30,
+            "statusMessage": "Linting with oxlint..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; case \"$f\" in */package-lock.json|package-lock.json|*/yarn.lock|yarn.lock) echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"Lock files are managed by npm/yarn directly \\u2014 edit package.json and reinstall instead.\"}}';; esac; }"
+          }
+        ]
+      }
+    ]
+  }
+}

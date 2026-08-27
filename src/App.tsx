@@ -2,6 +2,7 @@ import { MotionConfig } from 'motion/react';
 import { BlueprintChrome } from './components/layout/BlueprintChrome';
 import { SheetNav } from './components/layout/SheetNav';
 import { TitleBlock } from './components/layout/TitleBlock';
+import { ChatBot } from './components/layout/ChatBot';
 import { Hero } from './components/sections/Hero';
 import { SystemArchitecture } from './components/sections/SystemArchitecture';
 import { ComponentLibrary } from './components/sections/ComponentLibrary';
@@ -29,6 +30,7 @@ function App() {
         </main>
         <TitleBlock />
       </div>
+      <ChatBot />
     </MotionConfig>
   );
 }

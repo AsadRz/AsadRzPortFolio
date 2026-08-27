@@ -1,0 +1,144 @@
+import { profile } from '../src/data/profile';
+import { experience } from '../src/data/experience';
+import { caseStudies } from '../src/data/projects';
+import { education, certifications, languages } from '../src/data/education';
+import { skillCategories } from '../src/data/skills';
+
+export const config = { runtime: 'edge' };
+
+const MODEL = 'claude-haiku-4-5-20251001';
+const MAX_HISTORY = 12;
+const MAX_MESSAGE_LENGTH = 2000;
+
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+function buildKnowledgeBase(): string {
+  const experienceText = experience
+    .map(
+      (entry) =>
+        `- ${entry.role} @ ${entry.org} (${entry.period}, ${entry.location})\n  ${entry.bullets.join(' ')}\n  Stack: ${entry.stack.join(', ')}`,
+    )
+    .join('\n');
+
+  const caseStudyText = caseStudies
+    .map(
+      (study) =>
+        `- ${study.name} (${study.org}, ${study.period}) — ${study.description} Impact: ${study.impact
+          .map((metric) => `${metric.label}: ${metric.value}`)
+          .join(', ')}`,
+    )
+    .join('\n');
+
+  const skillsText = skillCategories
+    .map((category) => `- ${category.title}: ${category.items.map((item) => item.name).join(', ')}`)
+    .join('\n');
+
+  const certsText = certifications.map((cert) => `- ${cert.name} (${cert.issuer})`).join('\n');
+  const languagesText = languages.map((lang) => `- ${lang.name}: ${lang.level}`).join('\n');
+
+  return `Name: ${profile.name}
+Title: ${profile.title}
+Focus: ${profile.focus}
+Location: ${profile.location}
+Email: ${profile.email}
+LinkedIn: ${profile.linkedinLabel}
+
+Summary:
+${profile.summary}
+
+Experience:
+${experienceText}
+
+Case Studies:
+${caseStudyText}
+
+Skills:
+${skillsText}
+
+Education: ${education.degree}, ${education.school} (${education.period})
+
+Certifications:
+${certsText}
+
+Languages:
+${languagesText}`;
+}
+
+const SYSTEM_PROMPT = `You are the AI assistant embedded in ${profile.shortName}'s portfolio website. Answer visitor questions about ${profile.shortName}'s background, work experience, skills and projects using ONLY the information in the knowledge base below. Refer to ${profile.shortName} in the third person, keep answers concise (2-4 sentences unless asked for more detail), and stay professional and friendly.
+
+If asked something the knowledge base doesn't cover, say you don't have that information and suggest contacting ${profile.shortName} directly at ${profile.email}. Never invent facts, dates, or numbers not present below.
+
+--- KNOWLEDGE BASE ---
+${buildKnowledgeBase()}
+--- END KNOWLEDGE BASE ---`;
+
+function isChatMessage(value: unknown): value is ChatMessage {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    (('role' in value && (value as ChatMessage).role === 'user') ||
+      (value as ChatMessage).role === 'assistant') &&
+    typeof (value as ChatMessage).content === 'string'
+  );
+}
+
+export default async function handler(request: Request): Promise<Response> {
+  if (request.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
+  }
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return new Response(JSON.stringify({ error: 'Server is not configured with an API key.' }), {
+      status: 500,
+    });
+  }
+
+  let messages: ChatMessage[];
+  try {
+    const body = (await request.json()) as { messages?: unknown };
+    if (!Array.isArray(body.messages) || !body.messages.every(isChatMessage)) {
+      throw new Error('invalid');
+    }
+    messages = body.messages;
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid request body.' }), { status: 400 });
+  }
+
+  const trimmedMessages = messages.slice(-MAX_HISTORY).map((message) => ({
+    role: message.role,
+    content: message.content.slice(0, MAX_MESSAGE_LENGTH),
+  }));
+
+  const upstream = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 512,
+      system: SYSTEM_PROMPT,
+      messages: trimmedMessages,
+    }),
+  });
+
+  if (!upstream.ok) {
+    return new Response(JSON.stringify({ error: 'The assistant is unavailable right now.' }), {
+      status: 502,
+    });
+  }
+
+  const data = (await upstream.json()) as { content?: { text?: string }[] };
+  const reply: string = data.content?.[0]?.text ?? "Sorry, I couldn't generate a response.";
+
+  return new Response(JSON.stringify({ reply }), {
+    status: 200,
+    headers: { 'content-type': 'application/json' },
+  });
+}
