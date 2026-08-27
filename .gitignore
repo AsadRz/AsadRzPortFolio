@@ -29,3 +29,7 @@ dist-ssr
 *.sln
 *.sw?
 .env*
+
+# Local-only docs — not pushed (kept private per project owner's request)
+CLAUDE.md
+HOW_IT_WAS_BUILT.md

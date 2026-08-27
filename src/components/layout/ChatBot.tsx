@@ -75,7 +75,8 @@ export function ChatBot() {
         whileHover={{ y: -1 }}
         transition={{ duration: 0.15, ease: EASE_STANDARD }}
       >
-        <span className={styles.toggleDot} aria-hidden="true" />
+        <span className={styles.liveDot} aria-hidden="true" />
+        <span className={styles.toggleRef}>SYS.07</span>
         {isOpen ? 'CLOSE' : 'ASK AI'}
       </motion.button>
 
@@ -95,26 +96,45 @@ export function ChatBot() {
 
             <header className={styles.header}>
               <div className={styles.headerRow}>
-                <span className={styles.tag}>AI ASSISTANT</span>
-                <span className={styles.tag}>{profile.shortName.toUpperCase()}</span>
+                <span className={styles.tag}>AI ASSISTANT — SYS.07</span>
+                <span className={styles.liveTag}>
+                  <span className={styles.liveDot} aria-hidden="true" />
+                  LIVE
+                </span>
               </div>
+              <p className={styles.crossRef}>cross-ref FILE A.RIAZ-2026 · REV 1.0</p>
               <div className={styles.rule} aria-hidden="true" />
             </header>
 
-            <div className={styles.messages} ref={scrollRef}>
+            <div className={styles.log} ref={scrollRef}>
               {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={message.role === 'user' ? styles.messageUser : styles.messageAssistant}
-                >
-                  {message.content}
+                <div key={index} className={styles.logRow}>
+                  <span
+                    className={message.role === 'user' ? styles.logTagUser : styles.logTagAssistant}
+                  >
+                    {message.role === 'user' ? 'Q>' : 'A>'}
+                  </span>
+                  <p className={styles.logText}>{message.content}</p>
                 </div>
               ))}
-              {isLoading && <div className={styles.messageAssistant}>Thinking…</div>}
-              {error && <div className={styles.error}>{error}</div>}
+              {isLoading && (
+                <div className={styles.logRow}>
+                  <span className={styles.logTagAssistant}>A&gt;</span>
+                  <span className={styles.cursor} aria-label="Assistant is typing" />
+                </div>
+              )}
+              {error && (
+                <div className={styles.logRow}>
+                  <span className={styles.logTagError}>!&gt;</span>
+                  <p className={styles.errorText}>{error}</p>
+                </div>
+              )}
             </div>
 
             <div className={styles.inputRow}>
+              <span className={styles.prompt} aria-hidden="true">
+                ❯
+              </span>
               <textarea
                 ref={inputRef}
                 className={styles.input}
