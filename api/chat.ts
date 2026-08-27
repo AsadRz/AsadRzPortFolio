@@ -6,7 +6,7 @@ import { skillCategories } from '../src/data/skills';
 
 export const config = { runtime: 'edge' };
 
-const MODEL = 'claude-haiku-4-5-20251001';
+const MODEL = 'gpt-4o-mini';
 const MAX_HISTORY = 12;
 const MAX_MESSAGE_LENGTH = 2000;
 
@@ -90,7 +90,7 @@ export default async function handler(request: Request): Promise<Response> {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'Server is not configured with an API key.' }), {
       status: 500,
@@ -113,29 +113,29 @@ export default async function handler(request: Request): Promise<Response> {
     content: message.content.slice(0, MAX_MESSAGE_LENGTH),
   }));
 
-  const upstream = await fetch('https://api.anthropic.com/v1/messages', {
+  const upstream = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
+      authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       model: MODEL,
       max_tokens: 512,
-      system: SYSTEM_PROMPT,
-      messages: trimmedMessages,
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...trimmedMessages],
     }),
   });
 
   if (!upstream.ok) {
+    const detail = await upstream.text();
+    console.error('OpenAI upstream error', upstream.status, detail);
     return new Response(JSON.stringify({ error: 'The assistant is unavailable right now.' }), {
       status: 502,
     });
   }
 
-  const data = (await upstream.json()) as { content?: { text?: string }[] };
-  const reply: string = data.content?.[0]?.text ?? "Sorry, I couldn't generate a response.";
+  const data = (await upstream.json()) as { choices?: { message?: { content?: string } }[] };
+  const reply: string = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
 
   return new Response(JSON.stringify({ reply }), {
     status: 200,
