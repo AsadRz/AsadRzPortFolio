@@ -21,10 +21,15 @@ export function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus();
+  }, [isOpen]);
 
   async function sendMessage() {
     const content = input.trim();
@@ -85,9 +90,15 @@ export function ChatBot() {
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.2, ease: EASE_STANDARD }}
           >
+            <span className={styles.cornerMark} data-pos="tl" aria-hidden="true" />
+            <span className={styles.cornerMark} data-pos="tr" aria-hidden="true" />
+
             <header className={styles.header}>
-              <span className={styles.tag}>AI ASSISTANT</span>
-              <span className={styles.tag}>{profile.shortName.toUpperCase()}</span>
+              <div className={styles.headerRow}>
+                <span className={styles.tag}>AI ASSISTANT</span>
+                <span className={styles.tag}>{profile.shortName.toUpperCase()}</span>
+              </div>
+              <div className={styles.rule} aria-hidden="true" />
             </header>
 
             <div className={styles.messages} ref={scrollRef}>
@@ -105,11 +116,12 @@ export function ChatBot() {
 
             <div className={styles.inputRow}>
               <textarea
+                ref={inputRef}
                 className={styles.input}
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about experience, skills, projects…"
+                placeholder="Ask a question…"
                 rows={1}
                 disabled={isLoading}
               />
