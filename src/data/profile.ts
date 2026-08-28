@@ -8,6 +8,7 @@ export const profile = {
   linkedinHref: 'https://www.linkedin.com/in/asadullahriaz',
   linkedinLabel: 'linkedin.com/in/asadullahriaz',
   resumeHref: '/resume.pdf',
+  photo: '/profile-photo.jpg',
   summary:
     '8+ years building enterprise web platforms across UAE government and international teams — from React/TypeScript front ends to NestJS services and Oracle-backed data layers. Current focus: large-scale digital transformation systems for the Abu Dhabi Housing Authority, where security, compliance and long-term maintainability outweigh speed of shipping.',
   stats: [

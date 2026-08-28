@@ -100,7 +100,26 @@ export function Hero() {
       <div className={styles.layout}>
         <RevealGroup className={styles.copy} stagger={0.1}>
           <Reveal>
-            <span className="eyebrow">PERSONNEL SPEC · FILE A.RIAZ-2026 · REV 1.0</span>
+            <div className={styles.idRow}>
+              <div className={styles.photoFrame}>
+                <span className={styles.photoCorner} data-pos="tl" aria-hidden="true" />
+                <span className={styles.photoCorner} data-pos="tr" aria-hidden="true" />
+                <span className={styles.photoCorner} data-pos="bl" aria-hidden="true" />
+                <span className={styles.photoCorner} data-pos="br" aria-hidden="true" />
+                {profile.photo ? (
+                  <img src={profile.photo} alt={profile.name} className={styles.photo} />
+                ) : (
+                  <>
+                    <svg className={styles.photoPlaceholder} viewBox="0 0 100 100" aria-hidden="true">
+                      <circle cx="50" cy="38" r="18" />
+                      <path d="M16 92c4-24 24-34 34-34s30 10 34 34" />
+                    </svg>
+                    <span className={styles.photoTag}>PHOTO ID</span>
+                  </>
+                )}
+              </div>
+              <span className="eyebrow">PERSONNEL SPEC · FILE A.RIAZ-2026 · REV 1.0</span>
+            </div>
           </Reveal>
           <Reveal>
             <h1 className={styles.name}>{profile.name}</h1>
