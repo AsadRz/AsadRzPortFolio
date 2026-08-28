@@ -46,6 +46,8 @@ export interface SkillCategory {
 export interface CertItem {
   name: string;
   issuer: string;
+  verifyUrl?: string;
+  image?: string; // path under /public — the certificate image, when available
 }
 
 export interface LanguageItem {
@@ -67,4 +69,5 @@ export interface Achievement {
   title: string;
   description: string;
   source?: string; // e.g. "Client recommendation letter"
+  image?: string; // path under /public — scan of the letter/credential
 }

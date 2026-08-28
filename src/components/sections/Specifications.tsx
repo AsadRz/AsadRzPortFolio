@@ -1,9 +1,25 @@
 import { education, certifications, languages } from '../../data/education';
 import { SheetHeader } from '../ui/SheetHeader';
+import { StackChip } from '../ui/StackChip';
 import { RevealGroup, Reveal } from '../ui/Reveal';
 import styles from './Specifications.module.css';
 
+const ISSUER_CODE: Record<string, string> = {
+  Coursera: 'CR',
+  'Apollo GraphQL': 'GQL',
+  HackerRank: 'HR',
+  'LinkedIn Learning': 'LI',
+  'Anthropic Education': 'AN',
+};
+
+function issuerCode(issuer: string): string {
+  return ISSUER_CODE[issuer] ?? issuer.slice(0, 2).toUpperCase();
+}
+
 export function Specifications() {
+  const verifiedCerts = certifications.filter((cert) => cert.image);
+  const otherCerts = certifications.filter((cert) => !cert.image);
+
   return (
     <section id="specifications" className="sheet">
       <SheetHeader
@@ -11,7 +27,8 @@ export function Specifications() {
         title="Specifications"
         subtitle="Education, certifications and language calibration."
       />
-      <RevealGroup className={styles.grid} stagger={0.1}>
+
+      <RevealGroup className={styles.topGrid} stagger={0.1}>
         <Reveal className={styles.block}>
           <h3 className={styles.blockTitle}>Education</h3>
           <div className={styles.eduRow}>
@@ -19,18 +36,6 @@ export function Specifications() {
             <span className={styles.eduSchool}>{education.school}</span>
             <span className={`${styles.eduPeriod} mono`}>{education.period}</span>
           </div>
-        </Reveal>
-
-        <Reveal className={styles.block}>
-          <h3 className={styles.blockTitle}>Certifications &amp; Training</h3>
-          <ul className={styles.certList}>
-            {certifications.map((cert) => (
-              <li key={cert.name} className={styles.certItem}>
-                <span className={styles.certName}>{cert.name}</span>
-                <span className={styles.certIssuer}>{cert.issuer}</span>
-              </li>
-            ))}
-          </ul>
         </Reveal>
 
         <Reveal className={styles.block}>
@@ -50,6 +55,46 @@ export function Specifications() {
           </ul>
         </Reveal>
       </RevealGroup>
+
+      <Reveal className={styles.certBlock}>
+        <h3 className={styles.blockTitle}>Certifications &amp; Training</h3>
+
+        {verifiedCerts.length > 0 && (
+          <div className={styles.verifiedGallery}>
+            {verifiedCerts.map((cert) => (
+              <a
+                key={cert.name}
+                className={styles.verifiedCard}
+                href={cert.verifyUrl ?? cert.image}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img className={styles.verifiedImage} src={cert.image} alt="" loading="lazy" />
+                <span className={styles.verifiedName}>{cert.name}</span>
+                <span className={styles.verifiedIssuer}>{cert.issuer} · verified ↗</span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        <div className={styles.certCloud}>
+          {otherCerts.map((cert) =>
+            cert.verifyUrl ? (
+              <a
+                key={cert.name}
+                className={styles.chipLink}
+                href={cert.verifyUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <StackChip label={cert.name} refDes={issuerCode(cert.issuer)} tone="accent" />
+              </a>
+            ) : (
+              <StackChip key={cert.name} label={cert.name} refDes={issuerCode(cert.issuer)} />
+            ),
+          )}
+        </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,3 +1,14 @@
+.subHeading {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bp-amber);
+  padding-bottom: var(--u2);
+  margin-bottom: var(--u3);
+  border-bottom: var(--border-thin) solid var(--bp-line-faint-strong);
+}
+
 .achievements {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -11,6 +22,35 @@
   gap: 8px;
   padding: var(--u3);
   border: var(--border-thin) solid var(--bp-line-faint-strong);
+}
+
+.achievementImageLink {
+  display: block;
+  text-decoration: none;
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  margin-bottom: 4px;
+}
+
+.achievementImageLink:hover {
+  border-color: var(--bp-amber);
+}
+
+.achievementImage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.achievementImageLabel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--bp-line-dim);
+  padding: 6px 8px;
+  border-top: var(--border-thin) solid var(--bp-line-faint-strong);
 }
 
 .achievementTitle {
@@ -45,24 +85,17 @@
   margin-bottom: var(--u3);
 }
 
-.tag {
+.counter {
   font-family: var(--font-mono);
   font-size: 11.5px;
-  letter-spacing: 0.1em;
-  color: var(--bp-amber);
+  letter-spacing: 0.06em;
+  color: var(--bp-line-dim);
 }
 
 .sliderControls {
   display: flex;
   align-items: center;
   gap: var(--u2);
-}
-
-.counter {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.06em;
-  color: var(--bp-line-dim);
 }
 
 .navButton {
@@ -89,36 +122,99 @@
 .cardViewport {
   position: relative;
   overflow: hidden;
-  min-height: 200px;
 }
 
-.card {
-  width: 100%;
+.recommendations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--u4);
 }
 
-.quote {
-  font-size: clamp(16px, 2vw, 19px);
-  line-height: 1.6;
+.recCard {
+  position: relative;
+  overflow: hidden;
+  max-width: 480px;
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  padding: var(--u4);
+  transition: border-color 0.2s var(--ease-standard);
+}
+
+.recCard:hover {
+  border-color: var(--bp-amber-line);
+}
+
+.recMark {
+  position: absolute;
+  top: -0.2em;
+  right: var(--u3);
+  font-family: var(--font-display);
+  font-size: 120px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bp-amber-soft);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.recCode {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--bp-amber);
+  margin-bottom: var(--u2);
+}
+
+.recQuote {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(15px, 1.6vw, 16.5px);
+  line-height: 1.65;
   color: var(--bp-line-strong);
-  max-width: 62ch;
 }
 
-.attribution {
+.recAttribution {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--u2);
+  margin-top: var(--u3);
+  padding-top: var(--u2);
+  border-top: var(--border-thin) solid var(--bp-line-faint-strong);
+}
+
+.recAvatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--bp-amber);
+  background: var(--bp-amber-soft);
+  border: var(--border-thin) solid var(--bp-amber-line);
+}
+
+.recAttributionText {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-top: var(--u3);
-  padding-top: var(--u2);
-  border-top: var(--border-thin) solid var(--bp-line-faint);
 }
 
-.name {
+.recName {
   font-weight: 600;
   color: var(--bp-line-strong);
   font-size: 14.5px;
 }
 
-.role {
+.recRole {
   font-family: var(--font-mono);
   font-size: 11.5px;
   letter-spacing: 0.04em;

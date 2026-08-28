@@ -4,6 +4,16 @@
   gap: var(--u3);
 }
 
+.primarySpan {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .primarySpan {
+    grid-column: span 1;
+  }
+}
+
 .channel {
   display: flex;
   flex-direction: column;
@@ -20,6 +30,18 @@ a.channel:hover {
   background: var(--bp-amber-soft);
 }
 
+.primary {
+  border-color: var(--bp-amber-line);
+  background: var(--bp-amber-soft);
+}
+
+.channelCode {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--bp-amber);
+}
+
 .channelLabel {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -31,4 +53,18 @@ a.channel:hover {
   font-size: 15px;
   color: var(--bp-line-strong);
   word-break: break-word;
+}
+
+.primary .channelValue {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.channelAction {
+  margin-top: auto;
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--bp-cyan);
 }

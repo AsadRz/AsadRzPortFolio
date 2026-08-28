@@ -1,7 +1,8 @@
-.grid {
+.topGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--u5);
+  margin-bottom: var(--u6);
 }
 
 .blockTitle {
@@ -36,30 +37,62 @@
   font-size: 12px;
 }
 
-.certList {
+.certBlock {
+  max-width: none;
+}
+
+.verifiedGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--u2);
+  margin-bottom: var(--u3);
+}
+
+.verifiedCard {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  border: var(--border-thin) solid var(--bp-line-faint-strong);
+  text-decoration: none;
+  transition: border-color 0.2s var(--ease-standard);
 }
 
-.certItem {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--u2);
-  font-size: 13.5px;
-  padding-bottom: 8px;
-  border-bottom: var(--border-thin) solid var(--bp-line-faint);
+.verifiedCard:hover {
+  border-color: var(--bp-amber);
 }
 
-.certName {
-  color: var(--bp-line);
+.verifiedImage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-bottom: var(--border-thin) solid var(--bp-line-faint-strong);
 }
 
-.certIssuer {
+.verifiedName {
+  padding: 10px 10px 2px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--bp-line-strong);
+  line-height: 1.35;
+}
+
+.verifiedIssuer {
+  padding: 0 10px 10px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  color: var(--bp-line-dim);
-  white-space: nowrap;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--bp-amber);
+}
+
+.certCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chipLink {
+  text-decoration: none;
+  display: inline-flex;
 }
 
 .langList {
