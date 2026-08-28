@@ -10,7 +10,8 @@ export const certifications: CertItem[] = [
   {
     name: 'Meta Front-End Developer Professional',
     issuer: 'Coursera',
-    verifyUrl: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/5T7GAJVPBSY3',
+    verifyUrl: 'https://coursera.org/verify/professional-cert/5T7GAJVPBSY3',
+    image: '/certificates/coursera-meta-front-end-developer.jpg',
   },
   { name: 'GraphQL Developer — Associate', issuer: 'Apollo GraphQL' },
   { name: 'AI For React Developers', issuer: 'Coursera' },
